@@ -29,7 +29,14 @@ function App() {
     <>
       <Header />
       <InputGroup onValueChange={handleInvestmentValues} />
-      <Results />
+      {calculatedInvestment.length > 0 ? (
+        <Results
+          calculatedInvestment={calculatedInvestment}
+          rawInvestment={investmentResults}
+        />
+      ) : (
+        <p className="center">Enter a duration greater than zero</p>
+      )}
     </>
   )
 }
