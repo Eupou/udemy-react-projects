@@ -6,12 +6,16 @@ function App() {
   const [addingProject, setAddingProject] = useState(false)
   const [projects, setProjects] = useState([])
 
-  function handleAddingProject() {
+  function handleOpenForm() {
     setAddingProject((prev) => (prev = true))
   }
 
-  function addProject(project) {
+  function handleCloseForm() {
     setAddingProject((prev) => (prev = false))
+  }
+
+  function handleAddProject(project) {
+    handleCloseForm()
     setProjects((prevProjects) => {
       return [...prevProjects, project]
     })
@@ -22,11 +26,12 @@ function App() {
   return (
     <>
       <main className="h-screen flex">
-        <Sidebar addingProject={handleAddingProject} />
+        <Sidebar addingProject={handleOpenForm} projects={projects} />
         <View
           isAddingProject={addingProject}
-          onAddingProject={handleAddingProject}
-          addProject={addProject}
+          onAddProject={handleOpenForm}
+          onClose={handleCloseForm}
+          addProject={handleAddProject}
           projects={projects}
         />
       </main>

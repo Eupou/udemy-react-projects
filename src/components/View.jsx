@@ -1,33 +1,23 @@
 import DefaultView from "./DefaultView"
+import NewProjectForm from "./NewProjectForm"
 
 export default function View({
   isAddingProject,
-  onAddingProject,
+  onAddProject,
+  onClose,
   addProject,
   projects,
 }) {
-  function handleButtonClick() {
-    addProject({
-      title: "title 1",
-      description: "bla bla bla",
-      dueDate: "",
-      tasks: [],
-    })
-  }
-
   return (
     <>
       {isAddingProject ? (
-        <div>
-          oiii
-          <button onClick={handleButtonClick}>clicaaa</button>
-        </div>
+        <NewProjectForm onClose={onClose} addProject={addProject} />
       ) : (
         <>
           {projects.length > 0 ? (
             <div>Tem coisa</div>
           ) : (
-            <DefaultView addingProject={onAddingProject} />
+            <DefaultView addingProject={onAddProject} />
           )}
         </>
       )}

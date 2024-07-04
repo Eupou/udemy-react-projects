@@ -1,4 +1,4 @@
-export default function Sidebar({ addingProject }) {
+export default function Sidebar({ addingProject, projects }) {
   return (
     <aside className="h-full w-1/3 bg-stone-900 text-xl">
       <div className="m-auto w-[90%]">
@@ -13,12 +13,15 @@ export default function Sidebar({ addingProject }) {
         </button>
       </div>
       <ul className="m-auto w-[90%]">
-        <li className="flex p-2 justify-between my-4 text-stone-200 hover:bg-stone-800">
-          <button>projeto 1</button>
-        </li>
-        <li className="flex p-2 justify-between my-4 text-stone-200 hover:bg-stone-800">
-          projeto 2
-        </li>
+        {projects.length > 0 &&
+          projects.map((project, id) => (
+            <li
+              key={id}
+              className="flex p-2 justify-between my-4 text-stone-200 hover:bg-stone-800"
+            >
+              <button>{project.title}</button>
+            </li>
+          ))}
       </ul>
     </aside>
   )
