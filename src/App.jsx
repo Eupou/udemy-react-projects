@@ -24,7 +24,8 @@ function App() {
       <main className="h-screen flex">
         <Sidebar addingProject={handleAddingProject} />
         <View
-          addingProject={addingProject}
+          isAddingProject={addingProject}
+          onAddingProject={handleAddingProject}
           addProject={addProject}
           projects={projects}
         />

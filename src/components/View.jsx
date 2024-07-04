@@ -1,4 +1,11 @@
-export default function View({ addingProject, addProject, projects }) {
+import DefaultView from "./DefaultView"
+
+export default function View({
+  isAddingProject,
+  onAddingProject,
+  addProject,
+  projects,
+}) {
   function handleButtonClick() {
     addProject({
       title: "title 1",
@@ -10,14 +17,18 @@ export default function View({ addingProject, addProject, projects }) {
 
   return (
     <>
-      {addingProject ? (
+      {isAddingProject ? (
         <div>
           oiii
           <button onClick={handleButtonClick}>clicaaa</button>
         </div>
       ) : (
         <>
-          {projects.length > 0 ? <div>Tem coisa</div> : <div>nn tem nada</div>}
+          {projects.length > 0 ? (
+            <div>Tem coisa</div>
+          ) : (
+            <DefaultView addingProject={onAddingProject} />
+          )}
         </>
       )}
     </>
