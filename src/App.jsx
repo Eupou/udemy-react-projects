@@ -1,12 +1,33 @@
 import Sidebar from "./components/Sidebar"
 import View from "./components/View"
+import { useState } from "react"
 
 function App() {
+  const [addingProject, setAddingProject] = useState(false)
+  const [projects, setProjects] = useState([])
+
+  function handleAddingProject() {
+    setAddingProject((prev) => (prev = true))
+  }
+
+  function addProject(project) {
+    setAddingProject((prev) => (prev = false))
+    setProjects((prevProjects) => {
+      return [...prevProjects, project]
+    })
+  }
+
+  console.log(projects)
+
   return (
     <>
       <main className="h-screen flex">
-        <Sidebar />
-        <View />
+        <Sidebar addingProject={handleAddingProject} />
+        <View
+          addingProject={addingProject}
+          addProject={addProject}
+          projects={projects}
+        />
       </main>
     </>
   )
