@@ -17,22 +17,90 @@ function App() {
   function handleAddProject(project) {
     handleCloseForm()
     setProjects((prevProjects) => {
-      return [...prevProjects, project]
+      const updatedArray = prevProjects.map((projectItem) => {
+        return { ...projectItem, selected: false }
+      })
+
+      return [...updatedArray, project]
     })
   }
 
+  function handleRemoveProject(project) {
+    setProjects((prevProjects) => {
+      const filteredArray = prevProjects.filter(
+        (projectItem) => projectItem.title !== project.title
+      )
+
+      const updatedArray = filteredArray.map((item, id) => {
+        if (id == 0) {
+          return { ...item, selected: true }
+        }
+      })
+
+      return [...updatedArray]
+    })
+  }
+
+  function handleSelectProject(project) {
+    setProjects((prevProjects) => {
+      return prevProjects.map((projectItem) => {
+        if (projectItem.title === project.title) {
+          return { ...projectItem, selected: true }
+        } else {
+          return { ...projectItem, selected: false }
+        }
+      })
+    })
+  }
   console.log(projects)
+
+  function handleAddTask(project, task) {
+    setProjects((prevProjects) => {
+      return prevProjects.map((projectItem) => {
+        if (projectItem.title === project.title) {
+          return {
+            ...projectItem,
+            tasks: [...projectItem.tasks, task],
+          }
+        } else {
+          return projectItem
+        }
+      })
+    })
+  }
+
+  function handleRemoveTask(project, task) {
+    setProjects((prevProjects) => {
+      return prevProjects.map((projectItem) => {
+        if (projectItem.title === project.title) {
+          return {
+            ...projectItem,
+            tasks: projectItem.tasks.filter((itemTask) => itemTask !== task),
+          }
+        } else {
+          return projectItem
+        }
+      })
+    })
+  }
 
   return (
     <>
       <main className="h-screen flex">
-        <Sidebar addingProject={handleOpenForm} projects={projects} />
+        <Sidebar
+          addingProject={handleOpenForm}
+          projects={projects}
+          onSelect={handleSelectProject}
+        />
         <View
           isAddingProject={addingProject}
           onAddProject={handleOpenForm}
+          onRemoveProject={handleRemoveProject}
           onClose={handleCloseForm}
           addProject={handleAddProject}
           projects={projects}
+          onAddTask={handleAddTask}
+          onRemoveTask={handleRemoveTask}
         />
       </main>
     </>

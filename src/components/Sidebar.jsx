@@ -1,4 +1,8 @@
-export default function Sidebar({ addingProject, projects }) {
+export default function Sidebar({ addingProject, projects, onSelect }) {
+  const liDefaultCss =
+    "flex p-2 justify-between my-4 text-stone-200 hover:bg-stone-800"
+  const liSelected = liDefaultCss + " bg-stone-800"
+
   return (
     <aside className="h-full w-1/3 bg-stone-900 text-xl">
       <div className="m-auto w-[90%]">
@@ -17,9 +21,9 @@ export default function Sidebar({ addingProject, projects }) {
           projects.map((project, id) => (
             <li
               key={id}
-              className="flex p-2 justify-between my-4 text-stone-200 hover:bg-stone-800"
+              className={project.selected ? liSelected : liDefaultCss}
             >
-              <button>{project.title}</button>
+              <button onClick={() => onSelect(project)}>{project.title}</button>
             </li>
           ))}
       </ul>

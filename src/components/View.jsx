@@ -1,13 +1,19 @@
 import DefaultView from "./DefaultView"
 import NewProjectForm from "./NewProjectForm"
+import Project from "./Project"
 
 export default function View({
   isAddingProject,
   onAddProject,
   onClose,
+  onRemoveProject,
   addProject,
   projects,
+  onRemoveTask,
+  onAddTask,
 }) {
+  const selectedProject = projects.filter((project) => project.selected).pop()
+
   return (
     <>
       {isAddingProject ? (
@@ -15,7 +21,12 @@ export default function View({
       ) : (
         <>
           {projects.length > 0 ? (
-            <div>Tem coisa</div>
+            <Project
+              project={selectedProject}
+              onRemoveProject={onRemoveProject}
+              onAddTask={onAddTask}
+              onRemoveTask={onRemoveTask}
+            />
           ) : (
             <DefaultView addingProject={onAddProject} />
           )}

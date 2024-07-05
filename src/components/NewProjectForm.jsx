@@ -11,6 +11,7 @@ export default function NewProjectForm({ onClose, addProject }) {
       description: description.current.value,
       dueDate: dueDate.current.value,
       tasks: [],
+      selected: true,
     })
   }
 
